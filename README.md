@@ -8,6 +8,7 @@ This is Demo application for shopping cart using Spring boot
 It has the following REST Controller methods. The controller can be tested using POSTMAN or any other REST test client.
 
  * getTotalPrice : This method takes a list of fruits and return total cost
+                    This method returns deal for (buy one apple get one free, buy two orange and get one free)
  
 To TEST using POSTMAN use the folling
  * start spring boot application
