@@ -2,7 +2,6 @@ package info.keyal.demo.controller;
 
 import info.keyal.demo.service.SalesService;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,5 +31,4 @@ public class SalesController {
     public double getTotalPrice(@RequestBody List<String> fruits) {
         return salesService.getTotalPrice(fruits);
     }
-
 }
