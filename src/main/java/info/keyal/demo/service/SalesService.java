@@ -10,7 +10,6 @@ import java.util.List;
  */
 @Service
 public class SalesService {
-
     /**
      * Returns total price (in CENTS) for a list of fruits
      * The client will need to perform the conversion of cents to pound/pence
@@ -31,24 +30,16 @@ public class SalesService {
         System.out.println("Total Oranges = " + totalOranges);
 
         // Every 2nd apple is free
-        if (totalApples > 1) {
-            totalApplesForCalculation = totalApples - totalApples / 2;
-        } else {
-            totalApplesForCalculation = totalApples;
-        }
+        totalApplesForCalculation = totalApples - totalApples / 2;
+        System.out.println("total apple for calculation = " + totalApplesForCalculation);
 
         // Every 3rd orange is free
-        if (totalOranges > 2) {
-            totalOrangesForCalculation = totalOranges - totalOranges / 3;
-        } else {
-            totalOrangesForCalculation = totalOranges;
-        }
-        System.out.println("total apple for calculation = " + totalApplesForCalculation);
+        totalOrangesForCalculation = totalOranges - totalOranges / 3;
         System.out.println("total orange for calculation = " + totalOrangesForCalculation);
 
-
-        int totalprice = totalApplesForCalculation * 60 + totalOrangesForCalculation * 25;
+        int totalprice = totalApplesForCalculation * 3 + totalOrangesForCalculation * 4;
         System.out.println("Total Price " + totalprice);
+
         return totalprice;
     }
 }
