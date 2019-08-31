@@ -4,10 +4,7 @@ import info.keyal.demo.service.SalesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -81,5 +78,15 @@ public class SalesController {
     public int getTotalPriceWithAllOffer(@RequestBody List<String> fruits) {
         LOGGER.info("Getting total price with all offer for {} ", fruits);
         return salesService.getTotalPriceWithAllOffers(fruits);
+    }
+
+    /**
+     * Test Get method
+     *
+     * @return test hello string
+     */
+    @GetMapping("/test")
+    public String test() {
+        return "Hello from Sales Controller";
     }
 }
