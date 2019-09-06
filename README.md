@@ -30,4 +30,5 @@ Docker image can be created using Dockerfile
     - docker exec -it mydemocontainer /bin/sh
     
 # Angular
-Angular UI is created using Angular/cli as "ng new ui" command from project root
+- Angular UI is created using Angular/cli as "ng new ui" command from project root
+- Tour of Heros project added
