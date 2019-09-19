@@ -23,11 +23,13 @@ This is Demo application for various POCs. The UI is hosted at http://localhost:
 # Docker
 Docker image can be created using Dockerfile 
 - To create docker image, run the following command from the project root. This command uses Dockerfile and build image.
-    - docker build -t mydemoimage . 
-- To create a docker container from the above image, run the following command from project root   
-    - docker run -p 8080:8080 --name mydemocontainer mydemoimage 
+    $ ./gradlew clean build
+    $ docker build -t mydemoimage . 
+    $ docker images
+- To create a docker container from the above image and run the container, run the following command from project root   
+    $ docker run -p 8080:8080 --name mydemocontainer mydemoimage 
 - To login to docker container, use the following command
-    - docker exec -it mydemocontainer /bin/sh
+    $ docker exec -it mydemocontainer /bin/sh
     
 # Angular
 - Angular UI is created using Angular/cli as "ng new ui" command from project root
