@@ -1,36 +1,21 @@
-buildscript {
-    ext {
-        springBootVersion = '2.0.1.RELEASE'
-    }
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins {
+    id 'jacoco'
+    id 'org.springframework.boot' version '1.5.22.RELEASE'
+    id 'org.sonarqube' version '2.7.1'
 }
-
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
 
 group = 'info.keyal'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-    mavenCentral()
+    jcenter()
 }
 
-
 dependencies {
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
+    implementation 'io.springfox:springfox-swagger-ui:2.9.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    compile "org.springframework.boot:spring-boot-starter-web:1.5.12.RELEASE"
-    compile "org.springframework.boot:spring-boot-starter-data-rest:1.5.12.RELEASE"
-    compile "io.springfox:springfox-swagger2:2.9.2"
-    compile "io.springfox:springfox-swagger-ui:2.9.2"
-
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
