@@ -34,3 +34,7 @@ Docker image can be created using Dockerfile
 # Angular
 - Angular UI is created using Angular/cli as "ng new ui" command from project root
 - Tour of Heros project added
+
+# Spring Data JPA and Lombok
+- Spring data jpa added
+- Lombok added
