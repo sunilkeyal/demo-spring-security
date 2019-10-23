@@ -1,4 +1,4 @@
-package info.keyal.service;
+package info.keyal.demo.service;
 
 import info.keyal.demo.service.SalesService;
 import org.junit.Test;
@@ -30,7 +30,7 @@ public class SalesServiceTest {
      * total = 110
      */
     @Test
-    public void testGetTotalPrice() {
+    public void getTotalPriceTest() {
         int expectedPrice = 110; // Price for 1 apple, 2 oranges
         List<String> fruits = Arrays.asList("apple", "orange", "orange");
 
@@ -46,7 +46,7 @@ public class SalesServiceTest {
      * total = 195
      */
     @Test
-    public void testGetTotalPriceWithoutOffer() {
+    public void getTotalPriceWithoutOfferTest() {
         int expectedPrice = 195;
         List<String> fruits = Arrays.asList("apple", "apple", "orange", "orange", "orange");
 
@@ -63,7 +63,7 @@ public class SalesServiceTest {
      * total = 110
      */
     @Test
-    public void testGetTotalPriceWithOffer() {
+    public void getTotalPriceWithOfferTest() {
         int expectedPrice = 110;
         List<String> fruits = Arrays.asList("apple", "apple", "orange", "orange", "orange");
 
@@ -80,7 +80,7 @@ public class SalesServiceTest {
      * total = 600
      */
     @Test
-    public void testGetTotalPriceWithOfferForALargeDateSet() {
+    public void getTotalPriceWithOfferForALargeDateSetTest() {
         int expectedPrice = 600;
         List<String> fruits = Arrays.asList("apple", "apple", "apple", "apple", "apple", "apple", "apple", "apple", "apple", "apple",
                 "orange", "orange", "orange", "orange", "orange", "orange", "orange", "orange", "orange", "orange",
@@ -99,7 +99,7 @@ public class SalesServiceTest {
      * total = 135
      */
     @Test
-    public void testGetTotalPriceWithAppleOffer() {
+    public void getTotalPriceWithAppleOfferTest() {
         int expectedPrice = 135;
         List<String> fruits = Arrays.asList("apple", "apple", "orange", "orange", "orange");
 
@@ -116,7 +116,7 @@ public class SalesServiceTest {
      * total = 170
      */
     @Test
-    public void testGetTotalPriceWithOrangeOffer() {
+    public void getTotalPriceWithOrangeOfferTest() {
         int expectedPrice = 170;
         List<String> fruits = Arrays.asList("apple", "apple", "orange", "orange", "orange");
 
