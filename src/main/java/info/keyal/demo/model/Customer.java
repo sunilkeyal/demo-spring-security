@@ -19,7 +19,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Size(max = 2)
+    @Size(max = 20)
     @NotNull(message = "First name cannot be null")
     private String firstName;
 
