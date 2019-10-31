@@ -21,15 +21,26 @@ This is Demo application for various POCs. The UI is hosted at http://localhost:
 - Swagger can be accessed at http://localhost:8080/swagger-ui.html
 
 # Docker
-Docker image can be created using Dockerfile 
-- To create docker image, run the following command from the project root. This command uses Dockerfile and build image.
-    $ ./gradlew clean build
-    $ docker build -t mydemoimage . 
+Docker can build image by reading the instructions from a Dockerfile.
+
+- To build an image (demo_image)
+    $ ./gradlew clean build  (always clean build before creating image)
+    $ docker build -t demo_image . 
+    
+- To see the list of images    
     $ docker images
-- To create a docker container from the above image and run the container, run the following command from project root   
-    $ docker run -p 8080:8080 --name mydemocontainer mydemoimage 
-- To login to docker container, use the following command
-    $ docker exec -it mydemocontainer /bin/sh
+    
+- To create and start a named container "demo_container" 
+    $ docker run -p 7070:7070 --env MYSQL_HOST=host.docker.internal --env MYSQL_USERNAME=root --env MYSQL_PASSWORD=root --name demo_container demo_image:latest 
+    
+- To create and start a container with a random container name.  
+    $ docker run -p 7070:7070 --env MYSQL_HOST=host.docker.internal --env MYSQL_USERNAME=root --env MYSQL_PASSWORD=root demo_image:latest
+   
+- To see list of containers. -a flag will display all (active and inactive)
+    $ docker ps -a
+             
+- To login to the container
+    $ docker exec -it demo_container /bin/sh
     
 # Angular
 - Angular UI is created using Angular/cli as "ng new ui" command from project root
