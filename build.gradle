@@ -18,11 +18,11 @@ repositories {
 dependencies {
     implementation 'io.springfox:springfox-swagger2:2.9.2'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
-
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.postgresql:postgresql'
 
-    runtimeOnly 'mysql:mysql-connector-java'
-    runtime 'com.h2database:h2:1.4.200'
+//    runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'com.h2database:h2:1.4.200'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
