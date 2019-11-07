@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import info.keyal.demo.model.Customer;
 
+import javax.validation.ConstraintViolationException;
+
 /**
  * Tests for Customer Repository
  */
@@ -33,7 +35,7 @@ public class CustomerRepositoryTest {
     public void createCustomerTest() {
         Customer customer = getCustomer("Sunil", "Keyal", "9199248857", "sunilkeyal@hotmail.com");
 
-        Customer savedCustomer = customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.saveAndFlush(customer);
         assertThat(savedCustomer, is(notNullValue()));
         assertThat(savedCustomer.getFirstName(), equalTo("Sunil"));
         assertThat(savedCustomer.getLastName(), equalTo("Keyal"));
@@ -54,7 +56,7 @@ public class CustomerRepositoryTest {
     @Test
     public void deleteCustomerTest() {
         Customer customer = getCustomer("Sunil", "Keyal", "9199248857", "sunilkeyal@hotmail.com");
-        Customer savedCustomer = customerRepository.save(customer);
+        Customer savedCustomer = customerRepository.saveAndFlush(customer);
         assertThat(savedCustomer, is(notNullValue()));
         assertThat(savedCustomer.getFirstName(), equalTo("Sunil"));
         assertThat(savedCustomer.getLastName(), equalTo("Keyal"));
@@ -76,10 +78,10 @@ public class CustomerRepositoryTest {
     /**
      * Invalid email test
      */
-    @Test
+    @Test(expected = ConstraintViolationException.class)
     public void invalidEmailTest() {
-        Customer customer = getCustomer(null, "Keyal", "9199248857", "asdf@");
-        Customer savedCustomer = customerRepository.save(customer);
+        Customer customer = getCustomer(null, "Keyal", "9199248857", "asdf");
+        Customer savedCustomer = customerRepository.saveAndFlush(customer);
     }
 
 

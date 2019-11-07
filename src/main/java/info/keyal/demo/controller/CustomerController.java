@@ -1,5 +1,6 @@
 package info.keyal.demo.controller;
 
+import info.keyal.demo.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +19,12 @@ import info.keyal.demo.repository.CustomerRepository;
 @RequestMapping("/cusgtomer/")
 public class CustomerController {
 
+    final CustomerService customerService;
+
     @Autowired
-    CustomerRepository customerRepository;
+    public CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
+    }
 
     /**
      * Add new customer with given customer parameters
@@ -30,7 +35,7 @@ public class CustomerController {
      * @param email     email address
      * @return
      */
-    @PostMapping(path = "/add") // Map ONLY POST Requests
+    @PostMapping(path = "/add")
     public @ResponseBody
     String addNewUser(@RequestParam String firstName,
                       @RequestParam String lastName,
@@ -42,7 +47,7 @@ public class CustomerController {
         customer.setLastName(lastName);
         customer.setPhone(phone);
         customer.setEmail(email);
-        customerRepository.save(customer);
+        customerService.saveCustomer(customer);
         return "Saved";
     }
 
@@ -54,6 +59,6 @@ public class CustomerController {
     @GetMapping(path = "/all")
     public @ResponseBody
     Iterable<Customer> getAllCustomers() {
-        return customerRepository.findAll();
+        return customerService.getAllCustomer();
     }
 }

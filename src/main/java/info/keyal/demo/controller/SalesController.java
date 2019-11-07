@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/cart/")
 public class SalesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SalesController.class);
+    private final SalesService salesService;
+
     @Autowired
-    private SalesService salesService;
+    public SalesController(SalesService salesService) {
+        this.salesService = salesService;
+    }
 
     /**
      * Returns total price (in pence) for a list of fruits
