@@ -38,7 +38,7 @@ public class CustomerControllerTest {
     @Test
     public void createCustomerTest() throws Exception {
         Customer customer = getCustomer("Sunil", "Keyal", "9199248857", "sunilkeyal@hotmail.com");
-        ResponseEntity<Customer> response = restTemplate.exchange(createURLWithPort("/customers"), HttpMethod.POST, new HttpEntity<>(customer, new HttpHeaders()), Customer.class);
+        ResponseEntity<Customer> response = restTemplate.withBasicAuth("admin", "password").exchange(createURLWithPort("/customers"), HttpMethod.POST, new HttpEntity<>(customer, new HttpHeaders()), Customer.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody(), is(notNullValue()));
         assertThat(response.getBody().getId(), is(notNullValue()));
@@ -51,10 +51,10 @@ public class CustomerControllerTest {
     @Test
     public void getAllCustomerTest() throws Exception {
         Customer customer = getCustomer("Sunil", "Keyal", "9199248857", "sunilkeyal@hotmail.com");
-        restTemplate.exchange(createURLWithPort("/customers"), HttpMethod.POST, new HttpEntity<>(customer, new HttpHeaders()), Customer.class);
+        restTemplate.withBasicAuth("admin", "password").exchange(createURLWithPort("/customers"), HttpMethod.POST, new HttpEntity<>(customer, new HttpHeaders()), Customer.class);
 
         ParameterizedTypeReference<List<Customer>> responseType = new ParameterizedTypeReference<List<Customer>>() {};
-        ResponseEntity<List<Customer>> response = restTemplate.exchange(createURLWithPort("/customers"), HttpMethod.GET, null, responseType);
+        ResponseEntity<List<Customer>> response = restTemplate.withBasicAuth("admin", "password").exchange(createURLWithPort("/customers"), HttpMethod.GET, null, responseType);
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));
         assertThat(response.getBody().get(0), is(notNullValue()));
@@ -65,14 +65,6 @@ public class CustomerControllerTest {
         assertThat(response.getBody().get(0).getPhone(), is("9199248857"));
 
     }
-
-    @Test
-    public void helloWorldTest() throws Exception {
-        ResponseEntity<String> response = restTemplate.getForEntity(createURLWithPort("/test"), String.class);
-        assertThat(response.getStatusCode(), is(HttpStatus.OK));
-        assertThat(response.getBody(), is("Hello World"));
-    }
-
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;

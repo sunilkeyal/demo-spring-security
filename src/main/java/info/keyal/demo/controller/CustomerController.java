@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +20,7 @@ import info.keyal.demo.service.CustomerService;
  * Customer Controller
  */
 @RestController
+@CrossOrigin
 public class CustomerController {
     private final CustomerService customerService;
 
@@ -50,14 +52,4 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
 
-    /**
-     * Test hello world method
-     *
-     * @return Hello World
-     */
-    @GetMapping(path = "/test")
-    public @ResponseBody
-    ResponseEntity<String> helloWorld() {
-        return ResponseEntity.ok("Hello World");
-    }
 }
