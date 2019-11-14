@@ -49,3 +49,11 @@ Docker can build image by reading the instructions from a Dockerfile.
 # Spring Data JPA and Lombok
 - Spring data jpa added
 - Lombok added
+
+# Spring Security
+- Created client project
+    - "npm new client" from project root
+- Added Spring security with basic authentication
+    - Secured /customers REST endpoints    
+
+         
