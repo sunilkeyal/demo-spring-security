@@ -13,7 +13,6 @@ import info.keyal.demo.repository.CustomerRepository;
  */
 @Service
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
 
     @Autowired
@@ -38,5 +37,24 @@ public class CustomerService {
      */
     public List<Customer> getAllCustomer() {
         return customerRepository.findAll();
+    }
+
+    /**
+     * get a customer
+     *
+     * @param customerId customer id
+     * @return Customer
+     */
+    public Customer getCustomer(Integer customerId) {
+        return customerRepository.findById(customerId).get();
+    }
+
+    /**
+     * Delete a customer
+     *
+     * @param customerId customer id
+     */
+    public void deleteCustomer(Integer customerId) {
+        customerRepository.deleteById(customerId);
     }
 }
