@@ -12,10 +12,14 @@ import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Demo Customer object
+ *
+ */
 @Entity
 @Data
 @NoArgsConstructor
-@Table(name = "customer")
+@Table(name = "demo_customer")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
