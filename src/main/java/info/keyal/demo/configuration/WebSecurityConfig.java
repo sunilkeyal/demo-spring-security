@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -18,6 +20,8 @@ import org.springframework.security.oauth2.provider.approval.TokenStoreUserAppro
 import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+
+import info.keyal.demo.service.DemoUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -27,10 +31,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private ClientDetailsService clientDetailsService;
 
     @Autowired
-    public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("demo_admin").password("{noop}password").roles("ADMIN", "USER").and()
-                .withUser("demo_user").password("{noop}password").roles("USER");
+    private DemoUserDetailsService demoUserDetailsService;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(demoUserDetailsService)
+                .passwordEncoder(passwordEncoder());
     }
 
     @Override
@@ -42,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/test").permitAll()
+                .antMatchers("/", "/test", "/users").permitAll()
                 .antMatchers("/oauth/token").permitAll()
 //                .antMatchers("/customers/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -80,4 +86,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return store;
     }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
 }

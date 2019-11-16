@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import info.keyal.demo.model.Customer;
+import info.keyal.demo.model.DemoUserDetails;
 import info.keyal.demo.service.CustomerService;
 
 /**
@@ -49,8 +50,9 @@ public class CustomerController {
     public @ResponseBody
     ResponseEntity<List<Customer>> getCustomers() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        authentication.getPrincipal();
-        LOGGER.info("logged in user name:: {}", authentication.getPrincipal());
+        DemoUserDetails principal = (DemoUserDetails) authentication.getPrincipal();
+        LOGGER.info("logged in user name: {}", principal.getUsername());
+
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
 
