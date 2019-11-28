@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.validation.ConstraintViolationException;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import info.keyal.demo.model.Customer;
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@Ignore
 public class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
