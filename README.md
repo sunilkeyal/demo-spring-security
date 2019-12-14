@@ -75,4 +75,9 @@ Docker can build image by reading the instructions from a Dockerfile.
     - http://localhost:7070/api/v1/customers (POST)
     - http://localhost:7070/api/v1/customers (GET)
 
-         
+# JMS (ActiveMQ)
+- Added JMS Sender and Receiver 
+    - Create customer Service creates customer in DB 
+    - Sends message to JMS queue
+    - JMS Receiver gets the Message and update customer with JMS status
+             

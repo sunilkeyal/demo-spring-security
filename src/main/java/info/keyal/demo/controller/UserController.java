@@ -16,9 +16,12 @@ import info.keyal.demo.service.UserService;
 
 @RestController
 public class UserController {
+    private final UserService userService;
 
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     /**
      * Create new user

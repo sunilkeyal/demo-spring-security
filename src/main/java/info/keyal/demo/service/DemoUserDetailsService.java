@@ -15,9 +15,12 @@ import info.keyal.demo.repository.UserRepository;
  */
 @Service
 public class DemoUserDetailsService implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    public DemoUserDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String userName) {
