@@ -42,6 +42,9 @@ Docker can build image by reading the instructions from a Dockerfile.
 - To login to the container
     $ docker exec -it demo_container /bin/sh
     
+- One liner to build image, create container, and run it
+    $ ./gradlew build; docker build -t demo_image . ; docker rm --force demo_container; docker run -p 7070:7070 --env MYSQL_HOST=host.docker.internal --env MYSQL_USERNAME=root --env MYSQL_PASSWORD=root --name demo_container demo_image:latest 
+    
 # Angular
 - Install the following in Ubuntu
     - sudo apt install nodejs
@@ -80,4 +83,20 @@ Docker can build image by reading the instructions from a Dockerfile.
     - Create customer Service creates customer in DB 
     - Sends message to JMS queue
     - JMS Receiver gets the Message and update customer with JMS status
-             
+     
+## Kafka in docker
+- docker network create kafka-net
+- docker rm --force zookeeper-server
+- docker run -d --name zookeeper-server --network kafka-net -p 2181:2181 -e ALLOW_ANONYMOUS_LOGIN=yes bitnami/zookeeper
+    - //TODO run cluster of Zookeeper (called ensembles)
+- docker rm --force kafka-server1
+- docker run -d --name kafka-server1 --network kafka-net -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092 -p 9092:9092 bitnami/kafka:latest
+- docker run -d --name kafka-server2 --network kafka-net -e ALLOW_PLAINTEXT_LISTENER=yes -e KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper-server:2181 -e KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9093 -p 9093:9092 bitnami/kafka:latest
+
+- Zookeeper navigation
+    - docker run -d --network kafka-net -e HTTP_PORT=9000 -p 9000:9000 --name zoonavigator elkozmon/zoonavigator:latest
+
+- docker-compose.yml file is created which can be used to replace all the manual steps ahead
+    - run the following command from project root to build and start containers
+        - docker-compose up -d (-d for detached mode)
+        - docker-compose down  (to stop and delete containers)  
