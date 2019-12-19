@@ -27,6 +27,20 @@ import info.keyal.demo.service.DemoUserDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private static final String[] AUTH_WHITELIST = {
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/",
+            "/users",
+            "test"
+            // other public endpoints of your API may be appended to this array
+    };
+
     @Autowired
     private ClientDetailsService clientDetailsService;
 
@@ -48,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/test", "/users").permitAll()
+                .antMatchers(AUTH_WHITELIST).permitAll()
                 .antMatchers("/oauth/token").permitAll()
 //                .antMatchers("/customers/**").hasRole("ADMIN")
                 .anyRequest().authenticated()

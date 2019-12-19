@@ -77,7 +77,10 @@ Docker can build image by reading the instructions from a Dockerfile.
     - http://localhost:7070/users (GET)
     - http://localhost:7070/api/v1/customers (POST)
     - http://localhost:7070/api/v1/customers (GET)
-
+- For a new MYSQL database the following must be done
+    - http://localhost:7070/swagger-ui.html
+    - Create new user (admin/password)
+    
 # JMS (ActiveMQ)
 - Added JMS Sender and Receiver 
     - Create customer Service creates customer in DB 
