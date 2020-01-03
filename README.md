@@ -103,3 +103,6 @@ Docker can build image by reading the instructions from a Dockerfile.
     - run the following command from project root to build and start containers
         - docker-compose up -d (-d for detached mode)
         - docker-compose down  (to stop and delete containers)  
+        
+## Flyway
+- Added flyway db migration
