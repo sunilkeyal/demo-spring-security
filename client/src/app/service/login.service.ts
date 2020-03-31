@@ -14,6 +14,6 @@ export class LoginService {
       'Authorization': 'Basic ' + btoa('demo_client:password'),
       'Content-type': 'application/x-www-form-urlencoded'
     };
-    return this.http.post('http://localhost:7070/oauth/token', loginPayload, {headers});
+    return this.http.post('http://localhost:8080/oauth/token', loginPayload, {headers});
   }
 }

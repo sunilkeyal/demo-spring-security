@@ -7,14 +7,16 @@ import org.springframework.security.config.annotation.method.configuration.Globa
 import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecurityExpressionHandler;
 
 /**
- * Let’s come up with the security requirement that only allows users with ‘ADMIN’ role to delete a Customer.
- * How do you restrict the deleteCustomer method from the CustomerController class for the user with a ‘USER’ role?
+ * This class defines method level security configuration
  *
- * To implement this requirement, we will apply Spring Security’s method level security on the deleteCustomer method.
- * Spring’s method level security can be enabled using EnableGlobalMethodSecurity annotation.
+ * The prePostEnabled property enables Spring Security pre/post annotations
  *
- * Add the following PreAuthorize annotation to the above deleteCustomer method.
- * * @PreAuthorize(“hasAuthority(‘ROLE_ADMIN’)”)
+ * The implementation is inside CustomerController.java
+ * <P>
+ *     Use @PreAuthorize("hasAuthority('ROLE_ADMIN')") and the user must have ROLE_ADMIN to perform that operation
+ * </P>>
+ *
+ * The above annotation is used in deleteCustomer method and only ROLE_ADMIN user can now delete a customer.
  *
  */
 @Configuration

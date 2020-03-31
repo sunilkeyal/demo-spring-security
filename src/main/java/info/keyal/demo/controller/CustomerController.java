@@ -45,45 +45,58 @@ public class CustomerController {
     /**
      * Get list of customers
      *
+     * Only user with ROLE_ADMIN or ROLE_USER authorities can get a list of customers
+     *
      * @return List of Customers
      */
     @GetMapping(path = "/customers")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     public @ResponseBody
     ResponseEntity<List<Customer>> getCustomers() {
+        LOGGER.info("Getting all customers");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        DemoUserDetails principal = (DemoUserDetails) authentication.getPrincipal();
-        LOGGER.info("logged in user name: {}", principal.getUsername());
-
+        if (authentication != null && authentication.getPrincipal() instanceof DemoUserDetails) {
+            DemoUserDetails principal = (DemoUserDetails) authentication.getPrincipal();
+            LOGGER.info("logged in user name: {}, authorities: {}", principal.getUsername(), principal.getAuthorities());
+        }
         return ResponseEntity.ok(customerService.getAllCustomer());
     }
 
     /**
      * Get a customer by id
      *
+     * Only user with ROLE_ADMIN or ROLE_USER authorities can get a customer
+     *
      * @param customerId customer id
      * @return Customer
      */
     @GetMapping(value="/customers/{customerId}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     public @ResponseBody
     ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {
+        LOGGER.info("Getting customer {}", customerId);
         Customer customer = customerService.getCustomer(customerId);
         return new ResponseEntity<>(customer, OK);
     }
 
     /**
      * Create new customer with given Customer object
+     * Only user with ROLE_ADMIN or ROLE_USER authorities can create a customer
      *
      * @param customer customer object
      * @return ResponseEntity with created customer
      */
     @PostMapping(path = "/customers")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     public @ResponseBody
     ResponseEntity<Customer> createCustomer(@Valid @RequestBody Customer customer) {
+        LOGGER.info("Creating customer {}", customer);
         return ResponseEntity.ok(customerService.saveCustomer(customer));
     }
 
     /**
      * Delete a customer
+     * Only user with ROLE_ADMIN authority can delete a customer
      *
      * @param customerId customer id
      * @return void
@@ -92,6 +105,12 @@ public class CustomerController {
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public @ResponseBody
     ResponseEntity<Void> deleteCustomer(@PathVariable Integer customerId) {
+        LOGGER.info("Deleting customer {}", customerId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof DemoUserDetails) {
+            DemoUserDetails principal = (DemoUserDetails) authentication.getPrincipal();
+            LOGGER.info("logged in user name: {}, authorities: {}", principal.getUsername(), principal.getAuthorities());
+        }
         customerService.deleteCustomer(customerId);
         return new ResponseEntity<>(OK);
     }

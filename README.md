@@ -1,7 +1,7 @@
 This is Demo application for various POCs. The UI is hosted at http://localhost:8080
 
-# Rest Controller
-- The application has the following REST Controller methods. There are service tests to validate the business methods.
+# Sales Controller
+- The application has the following methods in SalesController. There are service tests to validate the business methods.
     - getTotalPrice : This method takes a list of fruits and returns total cost without any offer
     - getTotalPriceWithAppleOffer : This method takes a list of fruits and returns total cost with buy one get one free apple offer
     - getTotalPriceWithOrangeOffer : This method takes a list of fruits and returns total cost with buy two get one free orange offer
@@ -21,7 +21,7 @@ This is Demo application for various POCs. The UI is hosted at http://localhost:
 - Swagger can be accessed at http://localhost:8080/swagger-ui.html
 
 # Docker
-Docker can build image by reading the instructions from a Dockerfile.
+Docker can build images by reading the instructions from a Dockerfile.
 
 - To build an image (demo_image)
     $ ./gradlew clean build  (always clean build before creating image)
@@ -69,17 +69,14 @@ Docker can build image by reading the instructions from a Dockerfile.
 - Lombok added
 
 # Spring Security
-- Added Spring security with basic authentication
-    - Secured /customers REST endpoints  
+- Added Spring security with oauth2
+    - Secured /api/** REST endpoint resources 
 - The endpoints are
-    - http://localhost:7070/oauth/token (POST)
-    - http://localhost:7070/users (POST)
-    - http://localhost:7070/users (GET)
-    - http://localhost:7070/api/v1/customers (POST)
-    - http://localhost:7070/api/v1/customers (GET)
-- For a new MYSQL database the following must be done
-    - http://localhost:7070/swagger-ui.html
-    - Create new user (admin/password)
+    - http://localhost:8080/oauth/token (POST)
+    - http://localhost:8080/users (POST)
+    - http://localhost:8080/users (GET)
+    - http://localhost:8080/api/v1/customers (POST)
+    - http://localhost:8080/api/v1/customers (GET)
     
 # JMS (ActiveMQ)
 - Added JMS Sender and Receiver 

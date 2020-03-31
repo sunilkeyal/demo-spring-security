@@ -10,14 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.provider.ClientDetailsService;
-import org.springframework.security.oauth2.provider.approval.ApprovalStore;
-import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
-import org.springframework.security.oauth2.provider.approval.TokenStoreUserApprovalHandler;
-import org.springframework.security.oauth2.provider.request.DefaultOAuth2RequestFactory;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
@@ -27,48 +21,33 @@ import info.keyal.demo.service.DemoUserDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private static final String[] AUTH_WHITELIST = {
-            "/v2/api-docs",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui.html",
-            "/webjars/**",
-            "/",
-            "/users",
-            "/test"
-            // other public endpoints of your API may be appended to this array
-    };
-
-    @Autowired
-    private ClientDetailsService clientDetailsService;
-
     @Autowired
     private DemoUserDetailsService demoUserDetailsService;
 
+    /**
+     *
+     * enable in memory based authentication with a user as follows
+     * auth.inMemoryAuthentication().withUser("sunil").password("{noop}password").roles("USER");
+     *
+     * @param auth the {@link AuthenticationManagerBuilder} to use
+     * @throws Exception Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(demoUserDetailsService)
-                .passwordEncoder(passwordEncoder());
+        auth.userDetailsService(demoUserDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Override
     @Order(Ordered.HIGHEST_PRECEDENCE)
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
                 .csrf().disable()
+                .anonymous().disable()
                 .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers("/oauth/token").permitAll()
-//                .antMatchers("/customers/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .httpBasic()
-                .realmName("DEMO_REALM");
+                .formLogin().and()
+                .httpBasic();
     }
 
     @Override
@@ -80,24 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public TokenStore tokenStore() {
         return new InMemoryTokenStore();
-    }
-
-    @Bean
-    @Autowired
-    public TokenStoreUserApprovalHandler userApprovalHandler(TokenStore tokenStore) {
-        TokenStoreUserApprovalHandler handler = new TokenStoreUserApprovalHandler();
-        handler.setTokenStore(tokenStore);
-        handler.setRequestFactory(new DefaultOAuth2RequestFactory(clientDetailsService));
-        handler.setClientDetailsService(clientDetailsService);
-        return handler;
-    }
-
-    @Bean
-    @Autowired
-    public ApprovalStore approvalStore(TokenStore tokenStore) throws Exception {
-        TokenApprovalStore store = new TokenApprovalStore();
-        store.setTokenStore(tokenStore);
-        return store;
     }
 
     @Bean
