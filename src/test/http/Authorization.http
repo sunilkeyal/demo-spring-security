@@ -1,0 +1,6 @@
+POST http://localhost:8080/oauth/token?username=admin&password=password&grant_type=password
+Authorization: Basic demo_client password
+Content-Type: application/x-www-form-urlencoded
+
+###
+

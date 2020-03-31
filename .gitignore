@@ -10,6 +10,7 @@
 .settings
 .springBeans
 .sts4-cache
+lombok.config
 
 ### IntelliJ IDEA ###
 .idea
