@@ -1,23 +1,21 @@
 package info.keyal.demo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import info.keyal.demo.model.DemoUserDetails;
+import info.keyal.demo.model.User;
+import info.keyal.demo.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import info.keyal.demo.model.DemoUserDetails;
-import info.keyal.demo.model.User;
-import info.keyal.demo.repository.UserRepository;
-
-/**
- * Demo user details service
- */
 @Service
 public class DemoUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public DemoUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }

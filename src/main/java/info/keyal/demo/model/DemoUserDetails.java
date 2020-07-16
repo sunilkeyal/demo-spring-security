@@ -1,15 +1,14 @@
 package info.keyal.demo.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class DemoUserDetails implements UserDetails {
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
+public class DemoUserDetails implements UserDetails {
     private static final long serialVersionUID = 1L;
     private Collection<? extends GrantedAuthority> authorities;
     private String password;

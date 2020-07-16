@@ -1,8 +1,7 @@
 package info.keyal.demo.jms;
 
-import javax.jms.Message;
-import javax.jms.Session;
-
+import info.keyal.demo.model.Customer;
+import info.keyal.demo.repository.CustomerRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +11,8 @@ import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-import info.keyal.demo.model.Customer;
-import info.keyal.demo.repository.CustomerRepository;
+import javax.jms.Message;
+import javax.jms.Session;
 
 /**
  * JMS Receiver
@@ -35,9 +34,9 @@ public class Receiver {
      * When a customer shows up in the queue, it updates the customer status
      *
      * @param customer Customer payload
-     * @param headers Message headers
-     * @param message message
-     * @param session session
+     * @param headers  Message headers
+     * @param message  message
+     * @param session  session
      */
     @JmsListener(destination = QUEUE_NAME)
     public void receiveCustomer(@Payload Customer customer, @Headers MessageHeaders headers, Message message, Session session) {

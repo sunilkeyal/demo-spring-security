@@ -1,16 +1,14 @@
 package info.keyal.demo.controller;
 
-import java.util.List;
-
+import info.keyal.demo.service.SalesService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import info.keyal.demo.service.SalesService;
+import java.util.List;
 
 /**
  * Controller class for sales
@@ -21,7 +19,10 @@ public class SalesController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SalesController.class);
     private final SalesService salesService;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public SalesController(SalesService salesService) {
         this.salesService = salesService;
     }
@@ -72,7 +73,7 @@ public class SalesController {
 
     /**
      * Returns total price (in pence) for a list of fruits
-     *
+     * <p>
      * This method contains the following offers
      * - Buy 1 apple, get 1 free apple
      * - Buy 2 oranges, and get 1 free orange

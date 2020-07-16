@@ -1,24 +1,21 @@
 package info.keyal.demo.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import info.keyal.demo.model.User;
+import info.keyal.demo.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import info.keyal.demo.model.User;
-import info.keyal.demo.repository.UserRepository;
+import java.util.List;
 
-/**
- * User service
- *
- */
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;

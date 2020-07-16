@@ -1,7 +1,6 @@
 package info.keyal.demo.util;
 
 import com.github.javafaker.Faker;
-
 import info.keyal.demo.model.Customer;
 
 public class CustomerHelper {

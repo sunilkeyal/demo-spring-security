@@ -1,23 +1,11 @@
 package info.keyal.demo.model;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Demo User Object
- *
- */
+import javax.persistence.*;
+import java.util.List;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -31,6 +19,6 @@ public class User {
 
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade= CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Role> roles;
 }

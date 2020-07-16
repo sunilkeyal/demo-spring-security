@@ -1,23 +1,21 @@
 package info.keyal.demo.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import info.keyal.demo.jms.Sender;
 import info.keyal.demo.model.Customer;
 import info.keyal.demo.repository.CustomerRepository;
+import org.springframework.stereotype.Service;
 
-/**
- * Customer service
- */
+import java.util.List;
+
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final Sender sender;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public CustomerService(CustomerRepository customerRepository, Sender sender) {
         this.customerRepository = customerRepository;
         this.sender = sender;

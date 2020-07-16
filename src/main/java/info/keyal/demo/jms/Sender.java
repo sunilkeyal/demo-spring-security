@@ -1,12 +1,11 @@
 package info.keyal.demo.jms;
 
+import info.keyal.demo.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
-
-import info.keyal.demo.model.Customer;
 
 /**
  * JMS Sender
@@ -24,6 +23,7 @@ public class Sender {
 
     /**
      * Sends a customer object to JMS QUEUE
+     *
      * @param customer Customer to send
      */
     public void sendMessage(Customer customer) {

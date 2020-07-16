@@ -1,24 +1,25 @@
 package info.keyal.demo.controller;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import info.keyal.demo.model.Role;
+import info.keyal.demo.model.User;
+import info.keyal.demo.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import info.keyal.demo.model.Role;
-import info.keyal.demo.model.User;
-import info.keyal.demo.service.UserService;
+import java.util.Collections;
+import java.util.List;
 
 @RestController
 public class UserController {
     private final UserService userService;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public UserController(UserService userService) {
         this.userService = userService;
     }
