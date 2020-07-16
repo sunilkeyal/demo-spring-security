@@ -2,16 +2,15 @@ package info.keyal.demo.commandlinerunner;
 
 import info.keyal.demo.model.CustomerDocument;
 import info.keyal.demo.repository.CustomerDocumentRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- * This is a test class for Mongo DB tutorial
+ * This is test  for Mongo DB tutorial. This starts during DemoApplication startup.
  */
+@Slf4j
 @Component
 public class MongoDBCommandLineRunner {
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDBCommandLineRunner.class);
     private final CustomerDocumentRepository repository;
 
     /**
@@ -23,6 +22,7 @@ public class MongoDBCommandLineRunner {
     }
 
     public void start() {
+        log.info("************************** Starting MongoDBCommandLineRunner *************************  ");
         repository.deleteAll();
 
         // save a couple of customers
@@ -30,18 +30,18 @@ public class MongoDBCommandLineRunner {
         repository.save(new CustomerDocument("Bob", "Smith"));
 
         // fetch all customers
-        LOGGER.info("**** Customers found with findAll():");
+        log.info("**** Customers found with findAll():");
         for (CustomerDocument customer : repository.findAll()) {
-            LOGGER.info(customer.toString());
+            log.info(customer.toString());
         }
 
         // fetch an individual customer
-        LOGGER.info("**** Customer found with findByFirstName('Alice'):");
-        LOGGER.info(repository.findByFirstName("Alice").toString());
+        log.info("**** Customer found with findByFirstName('Alice'):");
+        log.info(repository.findByFirstName("Alice").toString());
 
-        LOGGER.info("**** Customers found with findByLastName('Smith'):");
+        log.info("**** Customers found with findByLastName('Smith'):");
         for (CustomerDocument customer : repository.findByLastName("Smith")) {
-            LOGGER.info(customer.toString());
+            log.info(customer.toString());
         }
     }
 }
