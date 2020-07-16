@@ -81,7 +81,9 @@ Docker Compose
  - Download mongo image, create docker container (named mongodb),
  - attach the /home/skeyal/Projects/demo/mongodb/data host volume to the /data/db container volume
     -  docker run --name mongodb -v /data/db:/home/skeyal/Projects/demo/mongodb/data -p 27017:27017 -d mongo
-    
+
+# ActiveMQ in docker
+- docker run --name activemq -p 61616:61616 -p 8161:8161 -d rmohr/activemq    
    
 # Angular
 - Install the following in Ubuntu
