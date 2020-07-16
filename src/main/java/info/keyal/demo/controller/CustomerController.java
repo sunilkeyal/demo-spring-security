@@ -1,35 +1,21 @@
 package info.keyal.demo.controller;
 
-import static org.springframework.http.HttpStatus.OK;
-
-import java.util.List;
-
-import javax.validation.Valid;
-
+import info.keyal.demo.model.Customer;
+import info.keyal.demo.model.DemoUserDetails;
+import info.keyal.demo.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import info.keyal.demo.model.Customer;
-import info.keyal.demo.model.DemoUserDetails;
-import info.keyal.demo.service.CustomerService;
+import javax.validation.Valid;
+import java.util.List;
 
-/**
- * Customer Controller
- */
+import static org.springframework.http.HttpStatus.OK;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/api/v1/")
@@ -37,14 +23,17 @@ public class CustomerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
     private final CustomerService customerService;
 
-    @Autowired
+    /**
+     * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
+     * A nice little bit of convenience and boilerplate removal!
+     */
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     /**
      * Get list of customers
-     *
+     * <p>
      * Only user with ROLE_ADMIN or ROLE_USER authorities can get a list of customers
      *
      * @return List of Customers
@@ -64,13 +53,13 @@ public class CustomerController {
 
     /**
      * Get a customer by id
-     *
+     * <p>
      * Only user with ROLE_ADMIN or ROLE_USER authorities can get a customer
      *
      * @param customerId customer id
      * @return Customer
      */
-    @GetMapping(value="/customers/{customerId}")
+    @GetMapping(value = "/customers/{customerId}")
     @PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_USER')")
     public @ResponseBody
     ResponseEntity<Customer> getCustomer(@PathVariable Integer customerId) {

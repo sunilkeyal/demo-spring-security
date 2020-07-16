@@ -1,5 +1,6 @@
 package info.keyal.demo.configuration;
 
+import info.keyal.demo.service.DemoUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
-import info.keyal.demo.service.DemoUserDetailsService;
-
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,7 +24,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DemoUserDetailsService demoUserDetailsService;
 
     /**
-     *
      * enable in memory based authentication with a user as follows
      * auth.inMemoryAuthentication().withUser("sunil").password("{noop}password").roles("USER");
      *

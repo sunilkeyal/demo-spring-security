@@ -1,12 +1,6 @@
 package info.keyal.demo.controller;
 
-import static info.keyal.demo.util.CustomerHelper.getCustomer;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.List;
-
+import info.keyal.demo.model.Customer;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,19 +9,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import info.keyal.demo.model.Customer;
+import java.util.List;
+
+import static info.keyal.demo.util.CustomerHelper.getCustomer;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(locations="classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 @Ignore
 public class CustomerControllerTest {
 
@@ -55,7 +50,8 @@ public class CustomerControllerTest {
         Customer customer = getCustomer("Sunil", "Keyal", "9199248857", "sunilkeyal@hotmail.com");
         restTemplate.withBasicAuth("admin", "password").exchange(createURLWithPort("/customers"), HttpMethod.POST, new HttpEntity<>(customer, new HttpHeaders()), Customer.class);
 
-        ParameterizedTypeReference<List<Customer>> responseType = new ParameterizedTypeReference<List<Customer>>() {};
+        ParameterizedTypeReference<List<Customer>> responseType = new ParameterizedTypeReference<List<Customer>>() {
+        };
         ResponseEntity<List<Customer>> response = restTemplate.withBasicAuth("admin", "password").exchange(createURLWithPort("/customers"), HttpMethod.GET, null, responseType);
 
         assertThat(response.getStatusCode(), is(HttpStatus.OK));

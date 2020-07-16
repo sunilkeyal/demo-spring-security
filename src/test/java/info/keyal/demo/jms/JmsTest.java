@@ -1,10 +1,7 @@
 package info.keyal.demo.jms;
 
-import static info.keyal.demo.jms.Receiver.JMS;
-import static info.keyal.demo.util.CustomerHelper.getFakeCustomer;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
+import info.keyal.demo.model.Customer;
+import info.keyal.demo.repository.CustomerRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +10,15 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import info.keyal.demo.model.Customer;
-import info.keyal.demo.repository.CustomerRepository;
+import static info.keyal.demo.jms.Receiver.JMS;
+import static info.keyal.demo.util.CustomerHelper.getFakeCustomer;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext
-@TestPropertySource(locations="classpath:application-test.properties")
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class JmsTest {
     @Autowired
     private Sender sender;

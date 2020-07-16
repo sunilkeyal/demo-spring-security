@@ -8,16 +8,15 @@ import org.springframework.security.oauth2.provider.expression.OAuth2MethodSecur
 
 /**
  * This class defines method level security configuration
- *
+ * <p>
  * The prePostEnabled property enables Spring Security pre/post annotations
- *
+ * <p>
  * The implementation is inside CustomerController.java
- * <P>
- *     Use @PreAuthorize("hasAuthority('ROLE_ADMIN')") and the user must have ROLE_ADMIN to perform that operation
+ * <p>
+ * Use @PreAuthorize("hasAuthority('ROLE_ADMIN')") and the user must have ROLE_ADMIN to perform that operation
  * </P>>
- *
+ * <p>
  * The above annotation is used in deleteCustomer method and only ROLE_ADMIN user can now delete a customer.
- *
  */
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)

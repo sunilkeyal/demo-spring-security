@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 public class TestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+
     /**
      * Test hello world method
      *

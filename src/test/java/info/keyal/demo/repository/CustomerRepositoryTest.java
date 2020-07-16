@@ -1,17 +1,6 @@
 package info.keyal.demo.repository;
 
-import static info.keyal.demo.util.CustomerHelper.getCustomer;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.empty;
-
-import java.util.List;
-
-import javax.validation.ConstraintViolationException;
-
+import info.keyal.demo.model.Customer;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import info.keyal.demo.model.Customer;
+import javax.validation.ConstraintViolationException;
+import java.util.List;
+
+import static info.keyal.demo.util.CustomerHelper.getCustomer;
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.empty;
 
 /**
  * Tests for Customer Repository
