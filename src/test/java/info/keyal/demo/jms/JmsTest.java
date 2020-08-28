@@ -2,6 +2,7 @@ package info.keyal.demo.jms;
 
 import info.keyal.demo.model.Customer;
 import info.keyal.demo.repository.CustomerRepository;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @SpringBootTest
 @DirtiesContext
 @TestPropertySource(locations = "classpath:application-test.properties")
+@Ignore
 public class JmsTest {
     @Autowired
     private Sender sender;
