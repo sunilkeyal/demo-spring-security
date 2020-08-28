@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class MongoDBCommandLineRunner {
+public class MongoDBCommandLineRunner implements DemoCommandLineRunner {
     private final CustomerDocumentRepository repository;
 
     /**
@@ -21,6 +21,7 @@ public class MongoDBCommandLineRunner {
         this.repository = repository;
     }
 
+    @Override
     public void start() {
         log.info("************************** Starting MongoDBCommandLineRunner *************************  ");
         repository.deleteAll();
