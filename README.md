@@ -72,6 +72,14 @@ Download Zookeeper Navigation docker image elkozmon/zoonavigator and create dock
 ## Elastic Search in docker
 - docker run --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -d docker.elastic.co/elasticsearch/elasticsearch:7.8.0  
 
+## Volumes in docker
+Volumes will be created in /var/lib/docker/volumes folder. 
+It can be created directly using following commands or use docker-compose
+When we use volumes, then the command "docker-compose down" won't remove data if mounted in volumes. See mysql-volume as an example.
+- docker volume create my-volume
+- docker volume ls
+- docker volume rm my-volume
+
 ## Docker Compose
 All the above manual steps can be replaced with docker-compose.yml file
 - https://docs.docker.com/compose/reference/overview/
