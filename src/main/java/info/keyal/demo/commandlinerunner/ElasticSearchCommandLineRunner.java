@@ -23,7 +23,8 @@ public class ElasticSearchCommandLineRunner implements DemoCommandLineRunner {
 
         // save a couple of customers
         repository.save(new CustomerElasticDocument("Alice", "Smith"));
-        repository.save(new CustomerElasticDocument("Bob", "Smith"));
+        repository.save(new CustomerElasticDocument("Alice", "Taylor"));
+        repository.save(new CustomerElasticDocument("Bob", "Mark"));
 
         // fetch all customers
         log.info("**** Customers found with findAll():");
@@ -33,11 +34,14 @@ public class ElasticSearchCommandLineRunner implements DemoCommandLineRunner {
 
         // fetch an individual customer
         log.info("**** Customer found with findByFirstName('Alice'):");
-        log.info(repository.findByFirstName("Alice").toString());
+        log.info(repository.findByFirstName("Bob").toString());
 
         log.info("**** Customers found with findByLastName('Smith'):");
         for (CustomerElasticDocument customer : repository.findByLastName("Smith")) {
             log.info(customer.toString());
         }
+
+        log.info("**** First matched Customers found with findFirstByFirstName('Alice'):");
+        log.info("Find" + repository.findFirstByFirstName("Alice"));
     }
 }
