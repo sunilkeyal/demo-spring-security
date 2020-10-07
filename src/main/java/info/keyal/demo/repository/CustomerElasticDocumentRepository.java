@@ -11,5 +11,7 @@ public interface CustomerElasticDocumentRepository extends ElasticsearchReposito
 
     CustomerElasticDocument findByFirstName(String firstName);
 
+    CustomerElasticDocument findFirstByFirstName(String firstName);
+
     List<CustomerElasticDocument> findByLastName(String lastName);
 }
