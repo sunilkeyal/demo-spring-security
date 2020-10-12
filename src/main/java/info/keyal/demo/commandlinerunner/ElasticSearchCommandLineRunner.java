@@ -1,5 +1,6 @@
 package info.keyal.demo.commandlinerunner;
 
+import com.github.javafaker.Faker;
 import info.keyal.demo.model.CustomerElasticDocument;
 import info.keyal.demo.repository.CustomerElasticDocumentRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class ElasticSearchCommandLineRunner implements DemoCommandLineRunner {
 
     private final CustomerElasticDocumentRepository repository;
+    private static Faker faker = new Faker();
 
     public ElasticSearchCommandLineRunner(CustomerElasticDocumentRepository repository) {
         this.repository = repository;
@@ -22,6 +24,11 @@ public class ElasticSearchCommandLineRunner implements DemoCommandLineRunner {
         repository.deleteAll();
 
         // save a couple of customers
+        for (int i = 0; i < 20; i++) {
+            log.info("Creating Customer");
+            repository.save(getFakeCustomer());
+        }
+
         repository.save(new CustomerElasticDocument("Alice", "Smith"));
         repository.save(new CustomerElasticDocument("Alice", "Taylor"));
         repository.save(new CustomerElasticDocument("Bob", "Mark"));
@@ -43,5 +50,12 @@ public class ElasticSearchCommandLineRunner implements DemoCommandLineRunner {
 
         log.info("**** First matched Customers found with findFirstByFirstName('Alice'):");
         log.info("Find" + repository.findFirstByFirstName("Alice"));
+    }
+
+    private static CustomerElasticDocument getFakeCustomer() {
+        CustomerElasticDocument customer = new CustomerElasticDocument();
+        customer.setFirstName(faker.name().firstName());
+        customer.setLastName(faker.name().lastName());
+        return customer;
     }
 }
