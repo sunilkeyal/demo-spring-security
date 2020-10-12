@@ -79,7 +79,7 @@ services:
       - elasticsearch
     volumes:
       - ./logstash:/config-dir:ro
-      - /tmp/logs:/application-logs
+      - /tmp/demo-logs:/demo-logs
     command: logstash -f /config-dir/logstash.conf
     depends_on:
       - elasticsearch
