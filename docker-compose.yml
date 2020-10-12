@@ -1,5 +1,9 @@
 version: '3'
 
+networks:
+  mynetwork:
+    driver: bridge
+
 services:
 
   mongodb:
@@ -7,6 +11,8 @@ services:
     image: mongo:latest
     ports:
       - 27017:27017
+    networks:
+      - mynetwork
 
   activemq:
     container_name: activemq
@@ -14,6 +20,8 @@ services:
     ports:
       - 61616:61616
       - 8161:8161
+    networks:
+      - mynetwork
 
   elasticsearch:
     container_name: elasticsearch
@@ -23,16 +31,60 @@ services:
       - 9300:9300
     environment:
       - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+    networks:
+      - mynetwork
 
   kibana:
     container_name: kibana
     image: docker.elastic.co/kibana/kibana:7.9.2
     environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     ports:
       - 5601:5601
     depends_on:
       - elasticsearch
+    networks:
+      - mynetwork
+
+  grafana:
+    container_name: grafana
+    image: grafana/grafana:7.2.1
+    ports:
+      - 3000:3000
+    networks:
+      - mynetwork
+    volumes:
+      - grafana-storage:/var/lib/grafana
+
+#  prometheus:
+#    container_name: prometheus
+#    image: prom/prometheus:v2.21.0
+#    volumes:
+#      - ./prometheus/:/etc/prometheus/
+#    command:
+#      - "--config.file=/etc/prometheus/prometheus.yml"
+#      - "--storage.tsdb.path=./prometheus"
+#    ports:
+#      - 9090:9090
+#    networks:
+#      - demonet
+
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.9.2
+    links:
+      - elasticsearch
+    volumes:
+      - ./logstash:/config-dir:ro
+      - /tmp/logs:/application-logs
+    command: logstash -f /config-dir/logstash.conf
+    depends_on:
+      - elasticsearch
+    networks:
+      - mynetwork
 
   mysql:
     container_name: mysql
@@ -47,7 +99,10 @@ services:
       MYSQL_USER: skeyal
       MYSQL_PASSWORD: skeyal
     volumes:
-      - mysql-volume:/var/lib/mysql
+      - mysql-storage:/var/lib/mysql
+    networks:
+      - mynetwork
 
 volumes:
-  mysql-volume:
+  grafana-storage:
+  mysql-storage:

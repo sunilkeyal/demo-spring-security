@@ -4,10 +4,10 @@ This is Demo application for various POCs. The UI is hosted at http://localhost:
 - Swagger can be accessed at http://localhost:8080/swagger-ui.html
 
 
-
-
 # Docker 
 ## Image from Dockerfile 
+Docker default is 2GB, which is not sufficient for so many servers to run inside. Increase to at least 4GB.
+
 We can build a docker image by reading  instructions from a Dockerfile as follows 
 
 - Clean build the application first
@@ -34,7 +34,7 @@ We can build a docker image by reading  instructions from a Dockerfile as follow
 - A One liner to build demo_image, create demo_container, and start it
     - $ ./gradlew build; docker build -t demo_image . ; docker rm --force demo_container; docker run -p 7070:7070 --env MYSQL_HOST=host.docker.internal --env MYSQL_USERNAME=root --env MYSQL_PASSWORD=root --name demo_container demo_image:latest 
     
-## Kafka in docker
+## Kafka in docker (Use docker-compose instead)
 Use the following commands to create a kafka instance inside docker.
 
 Create a network called kafka-net
@@ -61,24 +61,25 @@ Download bitnami/kafka docker image and create two containers (kafka-server1, an
 Download Zookeeper Navigation docker image elkozmon/zoonavigator and create docker container zoonavigator and start
 - docker run -d --network kafka-net -e HTTP_PORT=9000 -p 9000:9000 --name zoonavigator elkozmon/zoonavigator:latest
  
-## MongoDB in docker
+## MongoDB in docker (Use docker-compose instead)
 - Download mongo image, create docker container (named mongodb),
 - attach the /home/skeyal/Projects/demo/mongodb/data host volume to the /data/db container volume
     - docker run --name mongodb -p 27017:27017 -d mongo
 
-## ActiveMQ in docker
+## ActiveMQ in docker (Use docker-compose instead)
 - docker run --name activemq -p 61616:61616 -p 8161:8161 -d rmohr/activemq    
   
-## Elastic Search in docker
+## Elastic Search in docker (Use docker-compose instead)
 - docker run --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -d docker.elastic.co/elasticsearch/elasticsearch:7.8.0  
 
-## Volumes in docker
-Volumes will be created in /var/lib/docker/volumes folder. 
-It can be created directly using following commands or use docker-compose
-When we use volumes, then the command "docker-compose down" won't remove data if mounted in volumes. See mysql-volume as an example.
-- docker volume create my-volume
-- docker volume ls
-- docker volume rm my-volume
+## Volumes in docker (Use docker-compose instead)
+- By default, volumes will be created in /var/lib/docker/volumes folder (in Ubuntu).  Mac not sure...
+- It can be created directly using following commands or use docker-compose
+    - docker volume create my-volume
+    - docker volume ls
+    - docker volume rm my-volume
+- The command "docker-compose down" won't remove data if we use volumes. See mysql-storage, grafana-storage as examples inside docker-compose.yml.
+
 
 ## Docker Compose
 All the above manual steps can be replaced with docker-compose.yml file
@@ -89,6 +90,9 @@ All the above manual steps can be replaced with docker-compose.yml file
     - docker-compose -f docker-compose.yml up -d
     - docker-compose down  (to stop and delete containers)  
 
+
+# Grafana
+- source elasticsearch : http://elasticsearch:9200
 
 
 # Angular
@@ -180,7 +184,3 @@ All the above manual steps can be replaced with docker-compose.yml file
 ## How to get token for kubernetes
 token=$(microk8s kubectl -n kube-system get secret | grep default-token | cut -d " " -f1)
 microk8s kubectl -n kube-system describe secret $token
-
-
-eyJhbGciOiJSUzI1NiIsImtpZCI6IndScnRTaTdRZElsN1FOTzVwTG1YV3J6djFHUFotbkpOX0t4NzFoQ3prZmcifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLThmZ2d0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJmMDE2MjNiZi0xMGZiLTQ4MzgtYmZmYy02OTdjYjg4Y2JkYTUiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.KfpXQi2hYiXGW0nuJDCoMdqzxz4WkIzbWaB_denq_lbPZC6fCDsgyi4iLsq1TjbYUaVo3uP5zQg0Nlwpk-EGlRgze1QMv22hDlKCmTFUoe9I6IDOMvlk-7-A5SqsMOT1zQNhBsP_FHo4Q4fyf4r1_H-3BG_uBXwQQlFqE2Joh8YxA_BFT7URIIMjh3lJDs1zceR2cch2jg0hXJsSfeMQ5aVNl4QH_kOJgWAOxaXF9sftySF2Z9RPWUj8vfB0sSEJkWtG_N2fjDfJfoRRoszVyAZt5LOPNrAdm04thIZ7Y2Gy92rA0-dj1h0viGknp5gN2HdfH1QgFzfo9VEon0W6zw
-
