@@ -1,32 +1,44 @@
 # Docker
-## Build Image from Dockerfile
-Docker default size is 2 GB, which is not sufficient for so many servers to run inside. Increase to at least 4 GB. How???
-Docker image is built by reading instructions from a Dockerfile
+Docker default size is 2 GB, which is not sufficient for so many servers to run inside. 
+Increase to at least 4 GB. How???
 
-- Build application
-    - $ ./gradlew clean build
-- create docker image
-    - $ docker build -t demo_image . (Creates demo_image)
-- To see the list of images
-    - $ docker images
-- Remove a container
-    - $ docker rm --force demo_container;
-- To create a container (demo_container) and start
-    - $ docker run -p 8080:8080 --env MYSQL_HOST=host.docker.internal --env MYSQL_USERNAME=skeyal --env MYSQL_PASSWORD=skeyal --env MONGO_DB=demodb --env MONGO_HOST=localhost --env ACTIVEMQ_HOST=localhost --network=mynetwork --name demo_container demo_image:latest
-- To see a list of containers
-    - $ docker container ls -a (-a flag will display all active and inactive)
-- To login to demo_container
-    - $ docker exec -it demo_container /bin/sh
 
-## Docker Compose
-docker-compose.yml file can be used to build and manage multiple services in Docker containers
+## Dockerfile - Builds Docker Image
+Docker image is built by reading instructions from a Dockerfile. 
+Build and create demo docker image (called demo_image)
+
+- ./gradlew clean build
+- docker build -t demo_image .
+
+## Docker Compose - Builds and deploys Docker Containers
+docker-compose.yml file can be used to build and manage multiple services in Docker containers such as activemq, mysql, mongodb, elasticsearch etc...
+It also deploys demo application.
+
 - https://docs.docker.com/compose/reference/overview/
 - docker-compose up -d (-d for detached mode)
 - docker-compose -f abc-compose.yml up -d (docker-compose.yml is default but another file can be used this way)
 - docker-compose down (to stop and delete containers)
   
 
-## Kafka in docker (Use docker-compose instead)
+
+
+
+######################################################################################
+
+## demo application in docker manually (Use docker-compose instead)
+- To see the list of images
+    - $ docker images
+- Remove a container
+    - $ docker rm --force demo_container;
+- To create a container (demo_container) and start
+    - $ docker run -p 8080:8080 --env MYSQL_HOST=mysql --env MYSQL_USERNAME=skeyal --env MYSQL_PASSWORD=skeyal --env MONGO_DB=demo --env MONGO_HOST=mongodb --env ACTIVEMQ_HOST=activemq --env ELASTIC_HOST=elasticsearch --name demo_container demo_image:latest
+- To see a list of containers
+    - $ docker container ls -a (-a flag will display all active and inactive)
+- To login to demo_container
+    - $ docker exec -it demo_container /bin/sh
+
+  
+## Kafka in docker manually (Use docker-compose instead)
 Use the following commands to create a kafka instance inside docker.
 
 - Create a network called kafka-net
@@ -50,18 +62,18 @@ Use the following commands to create a kafka instance inside docker.
 - Download Zookeeper Navigation docker image elkozmon/zoonavigator and create docker container zoonavigator and start
     - docker run -d --network kafka-net -e HTTP_PORT=9000 -p 9000:9000 --name zoonavigator elkozmon/zoonavigator:latest
 
-## MongoDB in docker (Use docker-compose instead)
+## MongoDB in docker manually (Use docker-compose instead)
 - Download mongo image, create docker container (named mongodb),
 - attach the /home/skeyal/Projects/demo/mongodb/data host volume to the /data/db container volume
     - docker run --name mongodb -p 27017:27017 -d mongo
 
-## ActiveMQ in docker (Use docker-compose instead)
+## ActiveMQ in docker manually (Use docker-compose instead)
 - docker run --name activemq -p 61616:61616 -p 8161:8161 -d rmohr/activemq
 
-## Elastic Search in docker (Use docker-compose instead)
+## Elastic Search in docker manually (Use docker-compose instead)
 - docker run --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -d docker.elastic.co/elasticsearch/elasticsearch:7.8.0
 
-## Volumes in docker (Use docker-compose instead)
+## Volumes in docker manually (Use docker-compose instead)
 - By default, volumes will be created in /var/lib/docker/volumes folder (in Ubuntu).  Mac not sure...
 - It can be created directly using following commands or use docker-compose
     - docker volume create my-volume

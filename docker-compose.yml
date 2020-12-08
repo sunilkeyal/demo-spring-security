@@ -14,6 +14,23 @@ services:
     networks:
       - mynetwork
 
+  demo_app:
+    container_name: demo_app
+    image: demo_image:latest
+    ports:
+      - 8080:8080
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_USERNAME=skeyal
+      - MYSQL_PASSWORD=skeyal
+      - MONGO_DB=demo
+      - MONGO_HOST=mongodb
+      - ACTIVEMQ_HOST=activemq
+      - ELASTICSEARCH_HOST=elasticsearch
+      - ELASTICSEARCH_PORT=9200
+    networks:
+      - mynetwork
+
   activemq:
     container_name: activemq
     image: rmohr/activemq
