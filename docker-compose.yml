@@ -6,14 +6,6 @@ networks:
 
 services:
 
-  mongodb:
-    container_name: mongodb
-    image: mongo:latest
-    ports:
-      - 27017:27017
-    networks:
-      - mynetwork
-
   demo_app:
     container_name: demo_app
     image: demo_image:latest
@@ -37,32 +29,6 @@ services:
     ports:
       - 61616:61616
       - 8161:8161
-    networks:
-      - mynetwork
-
-  elasticsearch:
-    container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment:
-      - discovery.type=single-node
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    networks:
-      - mynetwork
-
-  kibana:
-    container_name: kibana
-    image: docker.elastic.co/kibana/kibana:7.9.2
-    environment:
-      - ELASTICSEARCH_URL=http://elasticsearch:9200
-      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch
     networks:
       - mynetwork
 

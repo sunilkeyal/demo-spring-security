@@ -1,8 +1,6 @@
 package info.keyal.demo;
 
 import info.keyal.demo.commandlinerunner.DemoCommandLineRunner;
-import info.keyal.demo.commandlinerunner.ElasticSearchCommandLineRunner;
-import info.keyal.demo.commandlinerunner.MongoDBCommandLineRunner;
 import info.keyal.demo.jms.Sender;
 import info.keyal.demo.model.Customer;
 import lombok.extern.slf4j.Slf4j;
@@ -16,15 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 public class DemoApplication implements CommandLineRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(DemoApplication.class);
-    private final MongoDBCommandLineRunner mongoDBCommandLineRunner;
-    private final ElasticSearchCommandLineRunner elasticSearchCommandLineRunner;
     private final Sender sender;
 
-    public DemoApplication(MongoDBCommandLineRunner mongoDBCommandLineRunner,
-                           ElasticSearchCommandLineRunner elasticSearchCommandLineRunner,
-                           Sender sender) {
-        this.mongoDBCommandLineRunner = mongoDBCommandLineRunner;
-        this.elasticSearchCommandLineRunner = elasticSearchCommandLineRunner;
+    public DemoApplication(Sender sender) {
         this.sender = sender;
     }
 
@@ -40,25 +32,7 @@ public class DemoApplication implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
-        mongoDBCommandLineRunner();
-        elasticSearchCommandLineRunner();
         activeMQCommandLineRunner();
-    }
-
-    /**
-     *  This needs mongodb to be running locally.
-     *  Check README.md to learn about how to install it inside docker container.
-     */
-    private void mongoDBCommandLineRunner(){
-        mongoDBCommandLineRunner.start();
-    }
-
-    /**
-     * This requires elastic search to be running locally
-     * Check README.md for how to install in docker container
-     */
-    private void elasticSearchCommandLineRunner() {
-        elasticSearchCommandLineRunner.start();;
     }
 
     /**
