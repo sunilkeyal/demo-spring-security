@@ -1,8 +1,9 @@
 package info.keyal.demo.controller;
 
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+//import org.junit.Ignore;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -15,10 +16,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
-@Ignore
+//@Ignore
 public class TestControllerTest {
     @Autowired
     protected TestRestTemplate testRestTemplate;
@@ -26,7 +27,7 @@ public class TestControllerTest {
     @LocalServerPort
     private int port;
 
-    @Test
+//    @Test
     public void helloWorldTest() throws Exception {
         ResponseEntity<String> response = testRestTemplate.getForEntity(createURLWithPort("/test"), String.class);
         assertThat(response.getStatusCode(), is(HttpStatus.OK));

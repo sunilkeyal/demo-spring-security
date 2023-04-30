@@ -1,10 +1,3 @@
-
-# Swagger
-Swagger can be accessed at http://localhost:8080/swagger-ui.html
-
-# Grafana
-- source elasticsearch : http://elasticsearch:9200
-
 # Angular
 - Install the following in Ubuntu
     - sudo apt install nodejs
@@ -33,16 +26,5 @@ Swagger can be accessed at http://localhost:8080/swagger-ui.html
   - http://localhost:8080/users (GET)
   - http://localhost:8080/api/v1/customers (POST)
   - http://localhost:8080/api/v1/customers (GET)    
-
-# Controllers
-
-## Customer Controller
-- It contains customer REST endpoints
-
-## Test Controller
-- A test controller http://localhost:8080/test . It returns "Hello World"
-
-## User Controller
-- A user controller for user REST endpoints
 
 

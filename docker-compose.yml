@@ -6,69 +6,6 @@ networks:
 
 services:
 
-  demo_app:
-    container_name: demo_app
-    image: demo_image:latest
-    ports:
-      - 8080:8080
-    environment:
-      - MYSQL_HOST=mysql
-      - MYSQL_USERNAME=skeyal
-      - MYSQL_PASSWORD=skeyal
-      - MONGO_DB=demo
-      - MONGO_HOST=mongodb
-      - ACTIVEMQ_HOST=activemq
-      - ELASTICSEARCH_HOST=elasticsearch
-      - ELASTICSEARCH_PORT=9200
-    networks:
-      - mynetwork
-
-  activemq:
-    container_name: activemq
-    image: rmohr/activemq
-    ports:
-      - 61616:61616
-      - 8161:8161
-    networks:
-      - mynetwork
-
-  grafana:
-    container_name: grafana
-    image: grafana/grafana:7.2.1
-    ports:
-      - 3000:3000
-    networks:
-      - mynetwork
-    volumes:
-      - grafana-storage:/var/lib/grafana
-
-#  prometheus:
-#    container_name: prometheus
-#    image: prom/prometheus:v2.21.0
-#    volumes:
-#      - ./prometheus/:/etc/prometheus/
-#    command:
-#      - "--config.file=/etc/prometheus/prometheus.yml"
-#      - "--storage.tsdb.path=./prometheus"
-#    ports:
-#      - 9090:9090
-#    networks:
-#      - demonet
-
-  logstash:
-    container_name: logstash
-    image: docker.elastic.co/logstash/logstash:7.9.2
-    links:
-      - elasticsearch
-    volumes:
-      - ./logstash:/config-dir:ro
-      - /tmp/demo-logs:/demo-logs
-    command: logstash -f /config-dir/logstash.conf
-    depends_on:
-      - elasticsearch
-    networks:
-      - mynetwork
-
   mysql:
     container_name: mysql
     image: mysql/mysql-server

@@ -1,6 +1,5 @@
 package info.keyal.demo.service;
 
-import info.keyal.demo.jms.Sender;
 import info.keyal.demo.model.Customer;
 import info.keyal.demo.repository.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -10,15 +9,14 @@ import java.util.List;
 @Service
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final Sender sender;
 
     /**
      * As of Spring 4.3, classes with a single constructor can omit the @Autowired annotation.
      * A nice little bit of convenience and boilerplate removal!
      */
-    public CustomerService(CustomerRepository customerRepository, Sender sender) {
+    public CustomerService(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
-        this.sender = sender;
+
     }
 
     /**
@@ -31,7 +29,6 @@ public class CustomerService {
         Customer savedCustomer = customerRepository.saveAndFlush(customer);
 
         // Send the customer object to JMS queue for further processing.
-        sender.sendMessage(customer);
         return savedCustomer;
     }
 
