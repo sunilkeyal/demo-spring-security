@@ -1,14 +1,12 @@
-This is Demo application
+# demo-spring-security
 
-This contains POC with the following technologies
-- Spring
-- Spring Security
-- Flyway by Redgate
-- Swagger
-- Docker
-- Kubernetes
-- ActiveMQ
-- JMS
-- Angular
-- Lombok
+This is Demo application about spring security
+
+## Install elastic search in docker using docker-compose.yml
+
+- https://docs.docker.com/compose/reference/overview/
+- docker-compose up -d (-d for detached mode)
+- docker-compose -f abc-compose.yml up -d (docker-compose.yml is default but another file can be used this way)
+- docker-compose down (to stop and delete containers)
+
 
