@@ -2,7 +2,7 @@
 
 This is Demo application about spring security
 
-## Install elastic search in docker using docker-compose.yml
+## Install MySQL Server in docker using docker-compose.yml
 
 - https://docs.docker.com/compose/reference/overview/
 - docker-compose up -d (-d for detached mode)
